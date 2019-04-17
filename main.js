@@ -22,7 +22,7 @@ let active = 0;
 const changeDot = () => {
     const activeDot = dots.findIndex(dot => dot.classList.contains('active'));
     dots[activeDot].classList.remove('active');
-    dots[activeDot].classList.add('active')
+    dots[active].classList.add('active')
 }
 
 const changeSlide = () => {
@@ -35,3 +35,21 @@ const changeSlide = () => {
     changeDot();
 }
 let indexInterval = setInterval(changeSlide, time);
+
+const keyChangeSlide = (e) => {
+    if (e.keyCode == 37 || e.keyCode == 39) {
+        clearInterval(indexInterval);
+        e.keyCode == 37 ? active-- : active++;
+        if (active === slideList.length) {
+            active = 0;
+        } else if (active < 0) {
+            active = slideList.length - 1;
+        }
+        image.src = slideList[active].img;
+        h1.textContent = slideList[active].text;
+        changeDot();
+        indexInterval = setInterval(changeSlide, time);
+    }
+}
+
+window.addEventListener('keydown', keyChangeSlide);
