@@ -19,6 +19,12 @@ const time = 3000;
 
 let active = 0;
 
+const changeDot = () => {
+    const activeDot = dots.findIndex(dot => dot.classList.contains('active'));
+    dots[activeDot].classList.remove('active');
+    dots[activeDot].classList.add('active')
+}
+
 const changeSlide = () => {
     active++;
     if (active === slideList.length) {
@@ -26,5 +32,6 @@ const changeSlide = () => {
     }
     image.src = slideList[active].img;
     h1.textContent = slideList[active].text;
+    changeDot();
 }
 let indexInterval = setInterval(changeSlide, time);
